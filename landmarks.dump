@@ -1,0 +1,239 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 11.2 (Ubuntu 11.2-1.pgdg18.04+1)
+-- Dumped by pg_dump version 11.2 (Ubuntu 11.2-1.pgdg18.04+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: comment; Type: TABLE; Schema: public; Owner: landmarks
+--
+
+CREATE TABLE public.comment (
+    comment_id integer NOT NULL,
+    comment_body character varying(500) NOT NULL,
+    comment_author character varying(100),
+    comment_date character varying(50),
+    comment_rate integer
+);
+
+
+ALTER TABLE public.comment OWNER TO landmarks;
+
+--
+-- Name: country; Type: TABLE; Schema: public; Owner: landmarks
+--
+
+CREATE TABLE public.country (
+    country_id integer NOT NULL,
+    country_name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.country OWNER TO landmarks;
+
+--
+-- Name: country_town; Type: TABLE; Schema: public; Owner: landmarks
+--
+
+CREATE TABLE public.country_town (
+    country_id integer NOT NULL,
+    town_id integer NOT NULL
+);
+
+
+ALTER TABLE public.country_town OWNER TO landmarks;
+
+--
+-- Name: landmark; Type: TABLE; Schema: public; Owner: landmarks
+--
+
+CREATE TABLE public.landmark (
+    landmark_id integer NOT NULL,
+    landmark_name character varying(50) NOT NULL,
+    landmark_ishistoric boolean DEFAULT false,
+    landmark_description character varying(200) NOT NULL,
+    landmark_history character varying(500),
+    landmark_rate integer DEFAULT 0,
+    landmark_category character varying(50) NOT NULL,
+    landmark_family boolean DEFAULT true,
+    landmark_commentid integer
+);
+
+
+ALTER TABLE public.landmark OWNER TO landmarks;
+
+--
+-- Name: town; Type: TABLE; Schema: public; Owner: landmarks
+--
+
+CREATE TABLE public.town (
+    town_id integer NOT NULL,
+    town_name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.town OWNER TO landmarks;
+
+--
+-- Name: town_landmark; Type: TABLE; Schema: public; Owner: landmarks
+--
+
+CREATE TABLE public.town_landmark (
+    town_id integer NOT NULL,
+    landmark_id integer NOT NULL
+);
+
+
+ALTER TABLE public.town_landmark OWNER TO landmarks;
+
+--
+-- Name: world; Type: TABLE; Schema: public; Owner: landmarks
+--
+
+CREATE TABLE public.world (
+    world_id integer NOT NULL,
+    world_name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.world OWNER TO landmarks;
+
+--
+-- Name: world_country; Type: TABLE; Schema: public; Owner: landmarks
+--
+
+CREATE TABLE public.world_country (
+    world_id integer NOT NULL,
+    country_id integer NOT NULL
+);
+
+
+ALTER TABLE public.world_country OWNER TO landmarks;
+
+--
+-- Data for Name: comment; Type: TABLE DATA; Schema: public; Owner: landmarks
+--
+
+COPY public.comment (comment_id, comment_body, comment_author, comment_date, comment_rate) FROM stdin;
+\.
+
+
+--
+-- Data for Name: country; Type: TABLE DATA; Schema: public; Owner: landmarks
+--
+
+COPY public.country (country_id, country_name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: country_town; Type: TABLE DATA; Schema: public; Owner: landmarks
+--
+
+COPY public.country_town (country_id, town_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: landmark; Type: TABLE DATA; Schema: public; Owner: landmarks
+--
+
+COPY public.landmark (landmark_id, landmark_name, landmark_ishistoric, landmark_description, landmark_history, landmark_rate, landmark_category, landmark_family, landmark_commentid) FROM stdin;
+1	Русалочка	t	Небольшая скульптура в копенгагенском порту (высота – 125 см.), изображающая известного персонажа сказки Г.Х. Андерсена	Писатель жил и творил в Копенгагене. Монумент создал мастер Э. Эриксон по просьбе основателя пивной компании «Карлсберг» К. Якобсена. Считается, что моделью для «Русалочки» была жена скульптора – известная балерина Королевского театра. Со временем статуя стала символом города и всей Дании.	5	monument	t	0
+2	Carlsberg	t	Музей пива находится в старом здании завода «Карлсберг», которое уже не работает. В нём расположены всевозможные станки и установки для производства пенного напитка, паровые машины, котлы, бочки.	Экспозиция находится в старом здании завода «Карлсберг», которое уже не работает. На территории 10 тыс. м² расположены всевозможные станки и установкТакже можно осмотреть одежду работников и столовые приборы. При музее работает бар, где турист сможет продегустировать несколько десятков сортов пива «Карлсберг» и «Туборг».	5	museum	t	0
+3	Аквариум	t	Океанариум «Голубая планета», состоящий из 70 бассейнов, в которых обитает несколько тысяч представителей морской фауны. Он является самым крупным во всей Северной Европе.	Океанариум «Голубая планета», состоящий из 70 бассейнов, в которых обитает несколько тысяч представителей морской фауны. Он является самым крупным и наиболее технически оснащенным во всей Северной Европе. Архитектурный комплекс океанариума является настоящим шедевром современного градостроительства. Ежегодно аквариум посещает несколько сотен тысяч человек, он входит в 10-ку самых популярных достопримечательностей Копенгагена.\n\n	5	relax	t	0
+4	Оперный театр	t	Национальный оперный театр Дании. Находится в ведении Королевского театра Дании, и является одним из новейших и самых дорогостоящих оперных театров в мире.	Здание театра было возведено в 2000-х гг. на средства частного фонда и отдано в «дар» государству (все равно инвестор вернул почти всю потраченную сумму в качестве налоговой льготы). Торжественное открытие сцены состоялось в 2005 году в присутствии королевы Маргрете II и премьер-министра Андерса Фог Расмуссена. В качестве премьерной постановки была выбрана опера «Валькирия» Р. Вагнера, где главную партию исполнил Пласидо Доминго.	5	music	t	0
+\.
+
+
+--
+-- Data for Name: town; Type: TABLE DATA; Schema: public; Owner: landmarks
+--
+
+COPY public.town (town_id, town_name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: town_landmark; Type: TABLE DATA; Schema: public; Owner: landmarks
+--
+
+COPY public.town_landmark (town_id, landmark_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: world; Type: TABLE DATA; Schema: public; Owner: landmarks
+--
+
+COPY public.world (world_id, world_name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: world_country; Type: TABLE DATA; Schema: public; Owner: landmarks
+--
+
+COPY public.world_country (world_id, country_id) FROM stdin;
+\.
+
+
+--
+-- Name: comment comment_pkey; Type: CONSTRAINT; Schema: public; Owner: landmarks
+--
+
+ALTER TABLE ONLY public.comment
+    ADD CONSTRAINT comment_pkey PRIMARY KEY (comment_id);
+
+
+--
+-- Name: country country_pkey; Type: CONSTRAINT; Schema: public; Owner: landmarks
+--
+
+ALTER TABLE ONLY public.country
+    ADD CONSTRAINT country_pkey PRIMARY KEY (country_id);
+
+
+--
+-- Name: landmark landmark_pkey; Type: CONSTRAINT; Schema: public; Owner: landmarks
+--
+
+ALTER TABLE ONLY public.landmark
+    ADD CONSTRAINT landmark_pkey PRIMARY KEY (landmark_id);
+
+
+--
+-- Name: town town_pkey; Type: CONSTRAINT; Schema: public; Owner: landmarks
+--
+
+ALTER TABLE ONLY public.town
+    ADD CONSTRAINT town_pkey PRIMARY KEY (town_id);
+
+
+--
+-- Name: world world_pkey; Type: CONSTRAINT; Schema: public; Owner: landmarks
+--
+
+ALTER TABLE ONLY public.world
+    ADD CONSTRAINT world_pkey PRIMARY KEY (world_id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
