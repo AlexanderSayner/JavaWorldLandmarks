@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Полный список достопримечательностей</title>
+<title>Список достопримечательностей</title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet"

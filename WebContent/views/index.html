@@ -1,31 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Startpage</title>
-	
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	
-	<!-- Custom CSS -->
-	<link href="css/album.css" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Startpage</title>
+
+<!-- Bootstrap -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<!-- Custom CSS -->
+<link href="css/album.css" rel="stylesheet">
 </head>
 
 <body>
-<header>
-	<div class="bg-dark"> <!-- header -->
+	<header>
+		<div class="bg-dark">
+			<!-- header -->
 			<h3 class="text-white">Самое интересное на улицах Копенгагена</h3>
 		</div>
-	</div>
-</header>
-	
-	<div> <!-- conetent -->
+	</header>
+
+	<div>
+		<!-- conetent -->
 		<div>
 			<form action="LandmarksListServlet">
 				<input type="submit" value="Показать список достопремечательностей">
 			</form>
 		</div>
+
+		<div>
+			<form action="LandmarksSearchServlet" method="post">
+				<div>
+					<b>Поиск по названию: </b>
+					<input type="text" name="codeword" size="20">
+					<input type="submit" value="Поиск">
+				</div>
+			</form>
+		</div>
 	</div>
-	
+
 </body>
 </html>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import main.java.etities.Landmark;
 import main.java.exceptions.LandmarkDataSourceException;
+import main.java.services.LandmarkAskQueryService;
 import main.java.services.LandmarkDatabaseService;
 
 /**
@@ -21,30 +22,27 @@ import main.java.services.LandmarkDatabaseService;
 public class LandmarksListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * Default constructor. 
-     */
-    public LandmarksListServlet() {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Default constructor.
+	 */
+	public LandmarksListServlet() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		//
 		List<Landmark> landmarks = null;
-		
-		LandmarkDatabaseService landmarkDatabaseService = new LandmarkDatabaseService();
-		try {
-			landmarks = landmarkDatabaseService.getAllLandmarks();
-		} catch (LandmarkDataSourceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
+		LandmarkAskQueryService landmarkAskQuery = new LandmarkAskQueryService();
+		landmarks = landmarkAskQuery.getAllLandmarks();
+
 		request.setAttribute("landmarkList", landmarks);
-		
+
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/LandmarksList.jsp");
 		requestDispatcher.forward(request, response);
 	}

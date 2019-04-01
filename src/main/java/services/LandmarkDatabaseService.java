@@ -8,15 +8,20 @@ import main.java.etities.Landmark;
 import main.java.exceptions.*;
 import main.java.facades.DatabaseFacade;
 import main.java.facades.PostgresDatabaseFacade;
+import main.java.services.interfaces.LandmarkService;
 
 public class LandmarkDatabaseService implements LandmarkService {
 	private DatabaseFacade databaseFacade = new PostgresDatabaseFacade();
 	private final String databaseLogin = "landmarks";
 	private final String databasePassword = "secret";
-
+		
+	/*
+	 * 
+	 * 
+	 */
 	@Override
-	public List<Landmark> getAllLandmarks() throws LandmarkDataSourceException {
-		// Возравщает все позиции из базы
+	public List<Landmark> getResultByQuery(String query) throws LandmarkDataSourceException {
+		// Получает список сущностей по результатам запроса
 		List<Landmark> landmarks = new ArrayList<Landmark>();
 
 		try {
@@ -24,8 +29,9 @@ public class LandmarkDatabaseService implements LandmarkService {
 			Connection connection = this.databaseFacade.getConnection();
 			if (connection != null) {
 				Statement statement = connection.createStatement();
-				String sql = "select * from " + "landmark";
-				ResultSet resultSet = statement.executeQuery(sql);
+				// Передаём полученный запрос
+				ResultSet resultSet = statement.executeQuery(query);
+				// Записываем сущности по одному в получившийся список
 				while (resultSet.next()) {
 					Landmark landmark = new Landmark();
 					landmark.setId(resultSet.getInt(landmark.FieldName_Id));
@@ -41,7 +47,8 @@ public class LandmarkDatabaseService implements LandmarkService {
 
 			}
 		} catch (DatabaseException de) {
-			throw new LandmarkDataSourceException("Unable to get person list from the database: " + de.getMessage());
+			throw new LandmarkDataSourceException(
+					"Unable to get landmarks list from the gotten query: " + de.getMessage());
 		} catch (SQLException sqle) {
 			throw new LandmarkDataSourceException("Error while operating with the database statement");
 		} finally {
@@ -50,11 +57,4 @@ public class LandmarkDatabaseService implements LandmarkService {
 
 		return landmarks;
 	}
-
-	@Override
-	public Landmark getLandmarkByID(Integer id) throws LandmarkDataSourceException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
